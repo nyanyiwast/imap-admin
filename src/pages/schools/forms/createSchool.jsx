@@ -26,6 +26,8 @@ import { Loader2 } from "lucide-react"
 const formSchema = z.object({
     name: z.string().min(5, {
     message: "School field is mandatory",
+  }).refine(value => value.includes('HIGH SCHOOL') || value.includes('SECONDARY SCHOOL'), {
+    message: "Text is missing either 'HIGH SCHOOL' or 'SECONDARY SCHOOL'",
   }),
     address: z.string().min(10, {
     message: "Please use valid address",
@@ -81,7 +83,7 @@ async function onSubmit(values) {
             <FormItem>
               <FormLabel>Registered School Name</FormLabel>
               <FormControl>
-                <Input placeholder="Chirumhanzu" {...field} />
+                <Input className="uppercase" placeholder="Chirumhanzu" {...field} />
               </FormControl>
               <FormDescription>
                 Do not forget to append Secondary or High School to the name
@@ -101,7 +103,7 @@ async function onSubmit(values) {
                 <FormItem>
                 <FormLabel>Physical Address</FormLabel>
                 <FormControl>
-                    <Input type="text" placeholder="F6GX+GR5, Chinamhora" {...field} />
+                    <Input className="uppercase" type="text" placeholder="F6GX+GR5, Chinamhora" {...field} />
                 </FormControl>
                 <FormDescription>
                 This is the physical address of the school, where it is located

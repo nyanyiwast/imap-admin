@@ -9,6 +9,7 @@ import { useState } from "react"
 
 
 import { Button } from "@/components/ui/button"
+
 import {
   Form,
   FormControl,
@@ -21,6 +22,7 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
+import { DatePickerWithRange } from "../../../custom/calendar/dateRange"
 
 const formSchema = z.object({
     name: z.string().min(5, {
@@ -80,7 +82,8 @@ async function onSubmit(values) {
           )}
         />
 
-
+      <DatePickerWithRange />
+      
         { !isLoading ?
         <Button type="submit">Proceed</Button>
         :

@@ -7,7 +7,7 @@ function SideNavbar() {
     <>
       <div className="relative flex h-full w-full max-w-[20rem] flex-col rounded-xl bg-white bg-clip-border p-4 text-gray-700 ">
         <div className="p-4 mb-2 pr-5">
-          <h5 className="block font-sans text-sm md:text-[35px] antialiased font-bold leading-snug tracking-normal text-blue-gray-900">
+          <h5 className="block font-sans text-black text-sm md:text-[35px] antialiased font-bold leading-snug tracking-normal text-blue-gray-900">
             iMAP
           </h5>
         </div>
@@ -60,7 +60,7 @@ function SideNavbar() {
             <div className="flex mr-4 place-items-center">
             <RecycleIcon size={17}/>
             </div>
-            <span className="hidden md:inline text-[15px]">Exchange Rate</span>
+            <span className="hidden md:inline text-[15px]">Exchange Rates</span>
           </div>
           <div
             role="button"
@@ -140,7 +140,7 @@ function SideNavbar() {
             <div className="flex mr-4 place-items-center">
               <UserPlus size={17}/>
             </div>
-            <span className="hidden md:inline text-[15px]">Create University Admins</span>
+            <span className="hidden md:inline text-[15px]">University Admins</span>
           </div>
           <div
             onClick={()=> navigateTo("/create-uni-dean")}
@@ -150,7 +150,7 @@ function SideNavbar() {
             <div className="flex mr-4 place-items-center">
               <UserPlus size={17}/>
             </div>
-            <span className="hidden md:inline text-[15px]">Create University Deans</span>
+            <span className="hidden md:inline text-[15px]">University Deans</span>
           </div>
           <div
             onClick={()=> navigateTo("/create-uni-dept")}
@@ -160,7 +160,7 @@ function SideNavbar() {
             <div className="flex mr-4 place-items-center">
               <School2Icon size={17}/>
             </div>
-            <span className="hidden md:inline text-[15px]">Create University Department</span>
+            <span className="hidden md:inline text-[15px]">University Departments</span>
           </div>
           <div
             onClick={()=> navigateTo("/create-uni-faculty")}
@@ -170,7 +170,7 @@ function SideNavbar() {
             <div className="flex mr-4 place-items-center">
               <BlocksIcon size={17}/>
             </div>
-            <span className="hidden md:inline text-[15px]">Create University Faculty</span>
+            <span className="hidden md:inline text-[15px]">University Faculty</span>
           </div>
           <div
             role="button"

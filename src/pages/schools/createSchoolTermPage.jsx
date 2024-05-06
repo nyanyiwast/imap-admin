@@ -1,4 +1,4 @@
-import { CreateSchoolDeanForm } from "./forms/createSchoolDean"
+import { CreateSchoolTermForm } from "./forms/createSchoolTerm"
 
 function CreateSchoolTermPage() {
   return (
@@ -9,7 +9,7 @@ function CreateSchoolTermPage() {
         </p>
 
         <div className="md:pl-5 pt-10 overflow-y-auto">
-            <CreateSchoolDeanForm />
+            <CreateSchoolTermForm/>
         </div>
     </div>
   )

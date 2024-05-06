@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
 
 const formSchema = z.object({
-    name: z.string().min(8, {
+    name: z.string().min(3, {
     message: "Province name field is mandatory and must be valid",
   })
   })
