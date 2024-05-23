@@ -24,13 +24,52 @@ import CreateUniversityUsersPage from './pages/universities/createUniversityUser
 import CreateUniversityDeanPage from './pages/universities/createUniversityDeanPage'
 import CreateUniversityDepartmentPage from './pages/universities/createUniversityDepartmentPage'
 import CreateUniversityFacultyPage from './pages/universities/createUniversityFacultyPage'
+import HeadRoot from './routes/head';
+import DeanRoot from './routes/dean';
+import Dashboard from './pages/dashboard/Dashboard'
+import CreateOLevelSubjectsPage from './pages/schools/createOLevelSubjectsPage'
+import CreateALevelSubjectsPage from './pages/schools/createALevelSubjectsPage'
+import CreateCategoryPage from './pages/schools/createCategoryPage'
+import ListOLevelSubjectsPage from './pages/schools/listOLevelSubjects'
+import ListALevelSubjectsPage from './pages/schools/listALevelSubjects'
+import ListProvincesPage from './pages/schools/listProvinces'
 
 const router = createBrowserRouter([
+
+  // SYSTEM ADMIN PANEL
   {
-    path: "/",
+    // path: "/dashboard",
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard />
+      },
+      {
+        path: "/view-provinces",
+        element: <ListProvincesPage />
+      },
+      {
+        path: "/o-subjects",
+        element: <CreateOLevelSubjectsPage />
+      },
+      {
+        path: "/a-subjects",
+        element: <CreateALevelSubjectsPage />
+      },
+      {
+        path: "/a-category",
+        element: <CreateCategoryPage />
+      },
+      {
+        path: "/view-o-subjects",
+        element: <ListOLevelSubjectsPage />
+      },
+      {
+        path: "/view-a-subjects",
+        element: <ListALevelSubjectsPage />
+      },
       {
         path: "/create-school",
         element: <CreateSchoolPage />
@@ -93,8 +132,52 @@ const router = createBrowserRouter([
       },
     ]
   },
+
+  // HEADMASTER PANEL
   {
-    path: "/auth",
+    // path: "/head",
+    element: <HeadRoot />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/head",
+        element: <CreateSchoolDeanPage />
+      },
+      {
+        path: "/create-dean",
+        element: <CreateSchoolDeanPage />
+      },
+      {
+        path: "/create-form-one-limits",
+        element: <FormOneLimitsPage />
+      },
+      {
+        path: "/create-form-five-limits",
+        element: <FormFiveLimitsPage />
+      },
+      {
+        path: "/create-category",
+        element: <FormFiveCategoryPage />
+      },
+    ]
+  },
+
+  // DEAN OR BURSAR PANEL
+  {
+    // path: "/dean",
+    element: <DeanRoot />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/dean",
+        element: <FormOneLimitsPage />
+      },
+    ]
+  },
+
+  // PUBLIC PAGES
+  {
+    path: "/",
     element: <LoginPage />,
     errorElement: <ErrorPage />,
     index: true
@@ -103,7 +186,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-      <Toaster position="bottom-center"/>
+      <Toaster position="bottom-center" richColors/>
       <RouterProvider router={router} />
   </React.StrictMode>,
 )

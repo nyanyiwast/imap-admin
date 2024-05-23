@@ -1,4 +1,4 @@
-import { BadgeDollarSign, BlocksIcon, CalendarCheck, LayoutDashboard, ListMinus, ListPlus, LogOutIcon, LucideSplitSquareVertical, Map, RecycleIcon, School2Icon, SchoolIcon, UserCheck2Icon, UserPlus } from "lucide-react";
+import { BadgeDollarSign, BlocksIcon, CalendarCheck, LayoutDashboard, ListMinus, ListPlus, LogOutIcon, LucideSplitSquareVertical, Map, RecycleIcon, School2Icon, SchoolIcon, SearchCheckIcon, UserCheck2Icon, UserPlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function SideNavbar() {
@@ -13,7 +13,7 @@ function SideNavbar() {
         </div>
         <nav className="flex min-w-[20px] md:min-w-[190px] flex-col gap-1 p-2 font-sans text-base font-normal text-blue-gray-700">
           <div
-            onClick={()=> navigateTo("/")}
+            onClick={()=> navigateTo("/dashboard")}
             role="button"
             className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
           >
@@ -21,6 +21,26 @@ function SideNavbar() {
               <LayoutDashboard size={17}/>
             </div>
             <span className="hidden md:inline text-[15px]">Dashboard</span>
+          </div>
+          <div
+            onClick={()=> navigateTo("/view-o-subjects")}
+            role="button"
+            className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          >
+            <div className="grid mr-4 place-items-center">
+              <SearchCheckIcon size={17}/>
+            </div>
+            <span className="hidden md:inline text-[15px]">List O Level Subjects</span>
+          </div>
+          <div
+            onClick={()=> navigateTo("/view-a-subjects")}
+            role="button"
+            className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          >
+            <div className="grid mr-4 place-items-center">
+              <SearchCheckIcon size={17}/>
+            </div>
+            <span className="hidden md:inline text-[15px]">List A Level Subjects</span>
           </div>
           <div
             onClick={()=> navigateTo("/create-school")}
@@ -41,6 +61,16 @@ function SideNavbar() {
               <Map size={17}/>
             </div>
             <span className="hidden md:inline text-[15px]">Create Province</span>
+          </div>
+          <div
+            onClick={()=> navigateTo("/view-provinces")}
+            role="button"
+            className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          >
+            <div className="grid mr-4 place-items-center">
+              <Map size={17}/>
+            </div>
+            <span className="hidden md:inline text-[15px]">View Province</span>
           </div>
           <div
             role="button"
@@ -111,6 +141,36 @@ function SideNavbar() {
               <ListMinus size={17}/>
             </div>
             <span className="hidden md:inline text-[15px]">Form One Limits</span>
+          </div>
+          <div
+            onClick={()=> navigateTo("/o-subjects")}
+            role="button"
+            className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          >
+            <div className="flex mr-4 place-items-center">
+              <ListMinus size={17}/>
+            </div>
+            <span className="hidden md:inline text-[15px]">O{"'"} Level Subjects</span>
+          </div>
+          <div
+            onClick={()=> navigateTo("/a-subjects")}
+            role="button"
+            className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          >
+            <div className="flex mr-4 place-items-center">
+              <ListMinus size={17}/>
+            </div>
+            <span className="hidden md:inline text-[15px]">A{"'"} Level Subjects</span>
+          </div>
+          <div
+            onClick={()=> navigateTo("/a-category")}
+            role="button"
+            className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          >
+            <div className="flex mr-4 place-items-center">
+              <ListMinus size={17}/>
+            </div>
+            <span className="hidden md:inline text-[15px]">A{"'"} Level Category</span>
           </div>
           <div
             onClick={()=> navigateTo("/create-form-five-limit")}

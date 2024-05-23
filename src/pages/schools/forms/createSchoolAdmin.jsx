@@ -25,14 +25,18 @@ import { Loader2 } from "lucide-react"
 import ListSchools from "../../../custom/selectDropdown/listSchools"
 
 const formSchema = z.object({
-    ecNumber: z.string().min(7, {
-    message: "EC Number field is mandatory",
+  ecNumber: z.string().refine((value) => {
+    if (value.length !== 6) return false; // Check length
+    if (!/[A-Za-z]$/.test(value)) return false; // Check last character is a letter
+    return true;
+  }, {
+    message: 'The Government ec number must be 6 characters long and end with a letter',
   }),
-    emailAddress: z.string().min(10, {
+    email: z.string().min(10, {
     message: "Please use valid email address",
   }),
-    fullName: z.string().min(8, {
-    message: "Please enter a full name",
+    password: z.string().min(8, {
+    message: "Please a valid password",
   })
   })
 
@@ -44,19 +48,18 @@ const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       ecNumber: "",
-      emailAddress: "",
-      role: "ADMIN",
+      email: "",
       provinceId: 1,
       schoolId: 1,
-      status: true,
+      password: ""
     },
   });
  
 // 2. Define a submit handler.
 async function onSubmit(values) {
   setLoading(true)
-  const { provinceId, schoolId, role, status } = form.getValues(); // Access the provinceId value
-  const updatedValues = { ...values, provinceId, schoolId, role, status }; // Include provinceId in the values object
+  const { provinceId, schoolId } = form.getValues(); // Access the provinceId value
+  const updatedValues = { ...values, provinceId, schoolId }; // Include provinceId in the values object
 
   try {
     const url = `${baseUrl}/school-admins`; // Specify your API URL
@@ -73,27 +76,10 @@ async function onSubmit(values) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:w-1/2 w-full p-5 md:p-0">
-        <FormField
-          control={form.control}
-          name="fullName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Registered School Representative Full Name</FormLabel>
-              <FormControl>
-                <Input placeholder="John Doe" {...field} />
-              </FormControl>
-              <FormDescription>
-                Preferably a school headmaster or deputy is advised
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-            
-          )}
-        />
         
         <FormField
             control={form.control}
-            name="emailAddress"
+            name="email"
             render={({ field }) => (
                 <FormItem>
                 <FormLabel>Email Address</FormLabel>
@@ -124,6 +110,24 @@ async function onSubmit(values) {
                 </FormItem>
             )}
             />    
+
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input type="password" placeholder="********" {...field} />
+              </FormControl>
+              <FormDescription>
+                Preferably an alpha numeric strong password
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+            
+          )}
+        />
 
         <ListProvinces />
 

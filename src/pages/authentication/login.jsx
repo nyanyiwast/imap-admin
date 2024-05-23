@@ -44,22 +44,22 @@ function onSubmit(values) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:w-1/2 w-full p-5 md:p-0">
-        <h1 className="md:text-[40px] text-[25px] font-bold">iMAP Login </h1>
+        <h1 className="md:text-[60px] text-[45px] font-bold">iMAP Login </h1>
+
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Email address</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="john@mail.co.uk" {...field} />
+                <Input type="email" placeholder="Your email address" {...field} />
               </FormControl>
               <FormDescription>
                 This is your public display name.
               </FormDescription>
               <FormMessage />
-            </FormItem>
-            
+            </FormItem> 
           )}
         />
 
@@ -75,8 +75,10 @@ function onSubmit(values) {
                 <FormMessage />
                 </FormItem>
             )}
-            />
-        <Button type="submit">Proceed</Button>
+          />
+
+        <Button type="submit">Login</Button>
+
       </form>
     </Form>
   )

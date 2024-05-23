@@ -27,11 +27,11 @@ const formSchema = z.object({
     ecNumber: z.string().min(7, {
     message: "EC Number field is mandatory",
   }),
-    emailAddress: z.string().min(10, {
+    fullName: z.string().min(10, {
     message: "Please use valid address",
   }),
-    schoolId: z.string().min(5, {
-    message: "Please enter a valid school",
+    password: z.string().min(8, {
+    message: "Please use valid password",
   })
   })
 
@@ -43,8 +43,9 @@ const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       ecNumber: "",
-      emailAddress: "",
-      role: "ADMIN",
+      fullName: "",
+      password: "",
+      provinceId: 1,
       schoolId: 1,
     },
   });
@@ -52,8 +53,8 @@ const form = useForm({
 // 2. Define a submit handler.
 async function onSubmit(values) {
   setLoading(true)
-  const { provinceId, schoolId, role, status } = form.getValues(); // Access the provinceId value
-  const updatedValues = { ...values, provinceId, schoolId, role, status }; // Include provinceId in the values object
+  const { schoolId, provinceId } = form.getValues(); // Access the provinceId value
+  const updatedValues = { ...values, schoolId, provinceId }; // Include provinceId in the values object
 
   try {
     const url = `${baseUrl}/school-deans`; // Specify your API URL
@@ -70,6 +71,7 @@ async function onSubmit(values) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:w-1/2 w-full p-5 md:p-0">
+
         <FormField
           control={form.control}
           name="fullName"
@@ -77,7 +79,7 @@ async function onSubmit(values) {
             <FormItem>
               <FormLabel>Registered School Representative Full Name</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input className="uppercase" placeholder="John Doe" {...field} />
               </FormControl>
               <FormDescription>
                 Preferably a school headmaster or deputy is advised
@@ -87,23 +89,6 @@ async function onSubmit(values) {
             
           )}
         />
-        
-        <FormField
-            control={form.control}
-            name="emailAddress"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Email Address</FormLabel>
-                <FormControl>
-                    <Input type="text" placeholder="johndoe@gmail.com" {...field} />
-                </FormControl>
-                <FormDescription>
-                This is the valid email address that we will use to send you all latest updates
-              </FormDescription>
-                <FormMessage />
-                </FormItem>
-            )}
-            />
 
         <FormField
             control={form.control}
@@ -120,7 +105,24 @@ async function onSubmit(values) {
                 <FormMessage />
                 </FormItem>
             )}
-            />    
+            />   
+
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+                <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                    <Input type="password" placeholder="********" {...field} />
+                </FormControl>
+                <FormDescription>
+                Use a strong password
+              </FormDescription>
+                <FormMessage />
+                </FormItem>
+            )}
+            />     
 
         <ListSchools />
 

@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { toast } from "sonner"
 
-
-export const postDataQuery = async (url, data) => {
+export const getTotalDataQuery = async (url) => {
   try {
-    const response = await axios.post(url, data, {
+    const response = await axios.get(url, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -13,10 +12,15 @@ export const postDataQuery = async (url, data) => {
 
     const { message } = response.data
 
-    if (response.status === 200) {
-      toast.success(message)
-      return response.data
-    } 
+    if (response.status === 200 || response.status === 201) {
+        toast.success(message);
+        return response.data.data.reduce((count, item) => {
+        if (item) {
+          return count + 1;
+        }
+        return count;
+      }, 0);
+      }
     else {
       return toast.warning(message)
     }
@@ -26,7 +30,7 @@ export const postDataQuery = async (url, data) => {
       return error.response.status
     } else {
       toast.error("Ooops, we ran into something. You could try checking your internet connection to help fix this.");
-      console.error('Post request failed', error)
+      console.error('GET request failed', error)
       throw error;
     }
   }

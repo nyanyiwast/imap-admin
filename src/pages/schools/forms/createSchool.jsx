@@ -32,10 +32,7 @@ const formSchema = z.object({
     address: z.string().min(10, {
     message: "Please use valid address",
   }),
-    zimsecCenterNumber: z.string().min(5, {
-    message: "Please enter a valid center number",
-  }),
-    cambridgeCenterNumber: z.string().min(5, {
+    centreNumber: z.string().min(5, {
     message: "Please enter a valid center number",
   })
   })
@@ -49,8 +46,7 @@ const form = useForm({
     defaultValues: {
       name: "",
       address: "",
-      zimsecCenterNumber: "",
-      cambridgeCenterNumber: "",
+      centreNumber: "",
       provinceId: 1,
     },
   });
@@ -93,8 +89,6 @@ async function onSubmit(values) {
             
           )}
         />
-
-        <ListProvinces />
         
         <FormField
             control={form.control}
@@ -115,7 +109,7 @@ async function onSubmit(values) {
 
         <FormField
             control={form.control}
-            name="zimsecCenterNumber"
+            name="centreNumber"
             render={({ field }) => (
                 <FormItem>
                 <FormLabel>Zimsec Center Number</FormLabel>
@@ -128,31 +122,18 @@ async function onSubmit(values) {
                 <FormMessage />
                 </FormItem>
             )}
-            />    
+            />      
 
-        <FormField
-            control={form.control}
-            name="cambridgeCenterNumber"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Cambridge Center Number</FormLabel>
-                <FormControl>
-                    <Input type="text" placeholder="116728" {...field} />
-                </FormControl>
-                <FormDescription>
-                The center number allocated to the school by Cambridge upon registering
-              </FormDescription>
-                <FormMessage />
-                </FormItem>
-            )}
-            />   
-        { !isLoading ?
-        <Button type="submit">Proceed</Button>
-        :
+          <ListProvinces />
+
+
+        { isLoading ?
         <Button disabled>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           Please wait
         </Button>
+        :
+        <Button type="submit">Proceed</Button>
         }
       </form>
     </Form>

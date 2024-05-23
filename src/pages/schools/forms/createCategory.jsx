@@ -9,28 +9,26 @@ import { useState } from "react"
 
 
 import { Button } from "@/components/ui/button"
-
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-  FormDescription
 } from "@/components/ui/form"
 
 import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
-import { DatePickerWithRange } from "../../../custom/calendar/dateRange"
 
 const formSchema = z.object({
     name: z.string().min(5, {
-    message: "Term name field is mandatory and must be valid",
+    message: "Please use valid subject name",
   })
   })
 
-export function CreateSchoolTermForm() {
+export function CreateCategoryForm() {
   const [isLoading, setLoading] = useState(false)
 
  // 1. Define your form.
@@ -38,19 +36,16 @@ const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      startDate: new Date(),
-      endDate: new Date()
     },
   });
  
 // 2. Define a submit handler.
 async function onSubmit(values) {
   setLoading(true)
-  const { startDate, endDate } = form.getValues(); // Access the provinceId value
-  const updatedValues = { ...values, startDate, endDate }; // Include provinceId in the values object
+  const updatedValues = { ...values }; // Include provinceId in the values object
 
   try {
-    const url = `${baseUrl}/school-terms`; // Specify your API URL
+    const url = `${baseUrl}/alevel-categories`; // Specify your API URL
     const response = await postDataQuery(url, updatedValues);
     console.log('Response:', response);
     setLoading(false)
@@ -69,12 +64,12 @@ async function onSubmit(values) {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>School Term</FormLabel>
+              <FormLabel>Enter Category Name</FormLabel>
               <FormControl>
-                <Input className="uppercase" placeholder="Term 1 2024" {...field} />
+                <Input className="uppercase" placeholder="Sciences" {...field} />
               </FormControl>
               <FormDescription>
-                Try to use a unique naming that users can be able to see and relate to when applying
+                Categories must be unique
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -82,15 +77,14 @@ async function onSubmit(values) {
           )}
         />
 
-      <DatePickerWithRange />
-      
-        { !isLoading ?
-        <Button type="submit">Proceed</Button>
-        :
+
+        { isLoading ?
         <Button disabled>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           Please wait
         </Button>
+        :
+        <Button type="submit">Proceed</Button>
         }
       </form>
     </Form>

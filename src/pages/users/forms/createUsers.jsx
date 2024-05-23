@@ -26,11 +26,8 @@ const formSchema = z.object({
     fullName: z.string().toUpperCase().min(5, {
     message: "Admin's fullname is mandatory",
   }),
-    emailAddress: z.coerce.string().toUpperCase().email().min(8, {
+    email: z.coerce.string().toUpperCase().email().min(8, {
     message: "Please enter a valid email address",
-  }),
-    role: z.string().min(5, {
-    message: "Please enter a valid center number",
   }),
     password: z.string().min(8, {
     message: "Password should be >= 8 characters",
@@ -45,19 +42,21 @@ const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       fullName: "",
-      emailAddress: "",
-      role: "ADMIN",
+      email: "",
+      status: true,
       password: ""
     },
   });
+
  
 // 2. Define a submit handler.
 async function onSubmit(values) {
   setLoading(true)
-  const updatedValues = values; // Include provinceId in the values object
+  const { status, dateCreated } = form.getValues(); // Access the provinceId value
+  const updatedValues = { ...values, status, dateCreated }; // Include provinceId in the values object
 
   try {
-    const url = `${baseUrl}/admin_users`; // Specify your API URL
+    const url = `${baseUrl}/admin-users`; // Specify your API URL
     const response = await postDataQuery(url, updatedValues);
     console.log('Response:', response);
     setLoading(false)
@@ -91,7 +90,7 @@ async function onSubmit(values) {
         
         <FormField
             control={form.control}
-            name="emailAddress"
+            name="email"
             render={({ field }) => (
                 <FormItem>
                 <FormLabel>Email Address</FormLabel>

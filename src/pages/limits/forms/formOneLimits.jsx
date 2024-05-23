@@ -25,19 +25,43 @@ import ListSchools from "../../../custom/selectDropdown/listSchools"
 import { toast } from "sonner"
 
 const formSchema = z.object({
-    upperUnitLimits: z.number().min(4, {
-    message: "Field is mandatory and must be valid",
-  }),
-    lowerUnitLimits: z.number().min(4, {
-    message: "Field is mandatory and must be valid",
-  }),
-    genderMaleNum: z.number().min(0, {
-    message: "Field is mandatory and must be valid",
-  }),
-    genderFemaleNum: z.number().min(0, {
-    message: "Field is mandatory and must be valid",
-  })
-  })
+  maxUnits: z.string().transform((value) => Number(value)).pipe(
+    z.number().int().min(4).max(36).positive().transform((value) => {
+      if (value < 4) {
+        return 4;
+      }
+      if (value > 36) {
+        return 36;
+      }
+      return value;
+    }).refine((value) => value >= 4 && value <= 36, {
+      message: "Field is mandatory and must be between 4 and 36",
+    })
+  ),
+  minUnits: z.string().transform((value) => Number(value)).pipe(
+    z.number().int().min(4).max(36).positive().transform((value) => {
+      if (value < 4) {
+        return 4;
+      }
+      if (value > 36) {
+        return 36;
+      }
+      return value;
+    }).refine((value) => value >= 4 && value <= 36, {
+      message: "Field is mandatory and must be between 4 and 36",
+    })
+  ),
+  maxMale: z.string().transform((value) => Number(value)).pipe(
+    z.number().min(0, {
+      message: "Field is mandatory and must be valid",
+    })
+  ),
+  maxFemale: z.string().transform((value) => Number(value)).pipe(
+    z.number().min(0, {
+      message: "Field is mandatory and must be valid",
+    })
+  ), 
+});
 
 export function FormOneLimitsForm() {
   const [isLoading, setLoading] = useState(false)
@@ -46,23 +70,23 @@ export function FormOneLimitsForm() {
 const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-        schoolId: 1,
-        upperUnitLimits: 4,
-        lowerUnitLimits: 4,
-        genderMaleNum: 0,
-        genderFemaleNum: 0,
-        schoolTermId: 1
+        maxUnits: 4,
+        minUnits: 4,
+        maxMale: 0,
+        maxFemale: 0,
+        schoolTermId: 1,
+        schoolId: 1
     },
   });
  
 // 2. Define a submit handler.
 async function onSubmit(values) {
 
-    const {genderMaleNum, genderFemaleNum, schoolId, schoolTermId, upperUnitLimits, lowerUnitLimits} = form.getValues()
+    const {maxMale, maxFemale, schoolId, schoolTermId, maxUnits, minUnits} = form.getValues()
 
-    if(genderMaleNum + genderFemaleNum <= 9){
-       if(lowerUnitLimits > upperUnitLimits){
-        return toast(`Attention. \n\nThe lower limit of ${lowerUnitLimits} is not greater than the upper limit ${upperUnitLimits}`)
+    if(maxMale + maxFemale <= 9){
+       if(minUnits > maxUnits){
+        return toast(`Attention. \n\nThe lower limit of ${minUnits} is not greater than the upper limit ${maxUnits}`)
        }
        else{
         return toast("Sorry. The number of students is too low. Try a minimum of at least 10 students.")
@@ -75,7 +99,7 @@ async function onSubmit(values) {
   const updatedValues = { ...values, schoolId, schoolTermId }; // Include provinceId in the values object
 
   try {
-    const url = `${baseUrl}/formOneLimits`; // Specify your API URL
+    const url = `${baseUrl}/form-one-limits`; // Specify your API URL
     const response = await postDataQuery(url, updatedValues);
     console.log('Response:', response);
     setLoading(false)
@@ -91,7 +115,7 @@ async function onSubmit(values) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:w-1/2 w-full p-5 md:p-0">
         <FormField
           control={form.control}
-          name="lowerUnitLimits"
+          name="minUnits"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Minimum accepted units</FormLabel>
@@ -106,7 +130,7 @@ async function onSubmit(values) {
 
     <FormField
           control={form.control}
-          name="upperUnitLimits"
+          name="maxUnits"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Maximum accepted units</FormLabel>
@@ -121,7 +145,7 @@ async function onSubmit(values) {
 
     <FormField
           control={form.control}
-          name="genderMaleNum"
+          name="maxMale"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Maximum number of male students</FormLabel>
@@ -136,7 +160,7 @@ async function onSubmit(values) {
 
     <FormField
           control={form.control}
-          name="genderFemaleNum"
+          name="maxFemale"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Maximum number of female students</FormLabel>
