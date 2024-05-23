@@ -7,10 +7,12 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [date, setDate] = useState({
     from: new Date(),
+    // eslint-disable-next-line no-undef
     to: addMonths(new Date(), 1),
   });
 
   const [otherValue, setOtherValue] = useState('Some value');
+  const [schoolId, setSchoolId] = useState(1)
 
   // Update functions
   const updateFromDate = (newDate) => {
@@ -28,6 +30,8 @@ export const AppProvider = ({ children }) => {
   };
 
   const contextValue = {
+    schoolId,
+    setSchoolId,
     date,
     updateFromDate,
     updateToDate,

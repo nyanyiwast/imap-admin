@@ -1,4 +1,4 @@
-import { BadgeDollarSign, BlocksIcon, CalendarCheck, LayoutDashboard, ListMinus, ListPlus, LogOutIcon, LucideSplitSquareVertical, Map, RecycleIcon, School2Icon, SchoolIcon, SearchCheckIcon, UserCheck2Icon, UserPlus } from "lucide-react";
+import { BadgeDollarSign, BlocksIcon, CalendarCheck, LayoutDashboard, ListMinus, ListPlus, LogOutIcon, LucideSplitSquareVertical, Map, RecycleIcon, School2Icon, SchoolIcon, Search, SearchCheckIcon, SearchSlash, UserCheck2Icon, UserPlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function SideNavbar() {
@@ -43,6 +43,26 @@ function SideNavbar() {
             <span className="hidden md:inline text-[15px]">List A Level Subjects</span>
           </div>
           <div
+            onClick={()=> navigateTo("/view-combo")}
+            role="button"
+            className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          >
+            <div className="grid mr-4 place-items-center">
+              <SearchCheckIcon size={17}/>
+            </div>
+            <span className="hidden md:inline text-[15px]">View Combinations</span>
+          </div>
+          <div
+            onClick={()=> navigateTo("/create-combination")}
+            role="button"
+            className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          >
+            <div className="grid mr-4 place-items-center">
+              <SearchCheckIcon size={17}/>
+            </div>
+            <span className="hidden md:inline text-[15px]">Create Combinations</span>
+          </div>
+          <div
             onClick={()=> navigateTo("/create-school")}
             role="button"
             className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
@@ -51,6 +71,16 @@ function SideNavbar() {
               <SchoolIcon size={17}/>
             </div>
             <span className="hidden md:inline text-[15px]">Create School</span>
+          </div>
+          <div
+            onClick={()=> navigateTo("/view-schools")}
+            role="button"
+            className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          >
+            <div className="grid mr-4 place-items-center">
+              <SchoolIcon size={17}/>
+            </div>
+            <span className="hidden md:inline text-[15px]">View Schools</span>
           </div>
           <div
             onClick={()=> navigateTo("/create-province")}
@@ -114,6 +144,16 @@ function SideNavbar() {
           </div>
           <div
             role="button"
+            onClick={()=> navigateTo("/view-school-admins")}
+            className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          >
+            <div className="grid mr-4 place-items-center">
+              <Search size={17}/>
+            </div>
+            <span className="hidden md:inline text-[15px]">View School Admins</span>
+          </div>
+          <div
+            role="button"
             onClick={()=> navigateTo("/create-school-deans")}
             className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
           >
@@ -141,6 +181,16 @@ function SideNavbar() {
               <ListMinus size={17}/>
             </div>
             <span className="hidden md:inline text-[15px]">Form One Limits</span>
+          </div>
+          <div
+            onClick={()=> navigateTo("/view-f1-limits")}
+            role="button"
+            className="flex items-center w-[10px] md:w-full p-3 leading-tight transition-all rounded-lg outline-none text-start hover:bg-gray-100 hover:text-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
+          >
+            <div className="flex mr-4 place-items-center">
+              <SearchSlash size={17}/>
+            </div>
+            <span className="hidden md:inline text-[15px]">View Form One Limits</span>
           </div>
           <div
             onClick={()=> navigateTo("/o-subjects")}

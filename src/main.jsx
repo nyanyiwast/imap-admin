@@ -33,6 +33,11 @@ import CreateCategoryPage from './pages/schools/createCategoryPage'
 import ListOLevelSubjectsPage from './pages/schools/listOLevelSubjects'
 import ListALevelSubjectsPage from './pages/schools/listALevelSubjects'
 import ListProvincesPage from './pages/schools/listProvinces'
+import ListSchoolAdminsPage from './pages/schools/listSchoolAdmin'
+import ListFormOneLimitsPage from './pages/schools/listFormOneLimits'
+import ListSchoolPage from './pages/schools/listSchools'
+import CreateCombinationPage from './pages/schools/createCombinationPage'
+import ListCombinationsPage from './pages/schools/listCombinations'
 
 const router = createBrowserRouter([
 
@@ -47,8 +52,28 @@ const router = createBrowserRouter([
         element: <Dashboard />
       },
       {
+        path: "/view-f1-limits",
+        element: <ListFormOneLimitsPage />
+      },
+      {
+        path: "/view-combo",
+        element: <ListCombinationsPage />
+      },
+      {
+        path: "/create-combination",
+        element: <CreateCombinationPage />
+      },
+      {
+        path: "/view-schools",
+        element: <ListSchoolPage />
+      },
+      {
         path: "/view-provinces",
         element: <ListProvincesPage />
+      },
+      {
+        path: "/view-school-admins",
+        element: <ListSchoolAdminsPage />
       },
       {
         path: "/o-subjects",

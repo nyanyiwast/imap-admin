@@ -21,44 +21,46 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react"
-import { ProvinceComboBox } from "../../../custom/provinceCombobox"
+import { SchoolComboBox } from "../../../custom/schoolCombobox"
 
 const formSchema = z.object({
-    name: z.string().min(5, {
-    message: "School field is mandatory",
-  }).refine(value => value.includes('HIGH SCHOOL') || value.includes('High School') ||  value.includes('high school') || value.includes('SECONDARY SCHOOL') || value.includes('Secondary School') || value.includes('secondary school'), {
-    message: "Text is missing either 'HIGH SCHOOL' or 'SECONDARY SCHOOL in that format'",
-  }),
-    address: z.string().min(10, {
-    message: "Please use valid address",
-  }),
-    centreNumber: z.string().min(5, {
-    message: "Please enter a valid center number",
-  })
+    subjectOneLimit: z.string().max(3, {
+    message: "Please limit",
+    }),
+    subjectTwoLimit: z.string().max(3, {
+    message: "Please limit",
+    }),
+    subjectThreeLimit: z.string().max(3, {
+    message: "Please limit",
+    })
   })
 
-export function CreateSchoolForm() {
+export function CreateCombinationForm() {
   const [isLoading, setLoading] = useState(false)
 
  // 1. Define your form.
 const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      address: "",
-      centreNumber: "",
-      provinceId: sessionStorage.getItem("pid"),
+        schoolId: sessionStorage.getItem("sid"),
+        subjectOneId: 2,
+        subjectTwoId: 5,
+        subjectThreeId: 6,
+        subjectOneLimit: "",
+        subjectTwoLimit: "",
+        subjectThreeLimit: "",
+        alevelCategoryId: 2
     },
   });
  
 // 2. Define a submit handler.
 async function onSubmit(values) {
   setLoading(true)
-  const { provinceId } = form.getValues(); // Access the provinceId value
-  const updatedValues = { ...values, provinceId }; // Include provinceId in the values object
+  const { schoolId, subjectOneId, subjectTwoId, subjectThreeId, alevelCategoryId } = form.getValues(); // Access the schoolId, subjectOneId, subjectTwoId, subjectThreeId, alevelCategoryId value
+  const updatedValues = { ...values, schoolId, subjectOneId, subjectTwoId, subjectThreeId, alevelCategoryId }; // Include provinceId in the values object
 
   try {
-    const url = `${baseUrl}/schools`; // Specify your API URL
+    const url = `${baseUrl}/school-a-level-combinations`; // Specify your API URL
     const response = await postDataQuery(url, updatedValues);
     console.log('Response:', response);
     setLoading(false)
@@ -74,12 +76,12 @@ async function onSubmit(values) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:w-1/2 w-full p-5 md:p-0">
         <FormField
           control={form.control}
-          name="name"
+          name="subjectOneLimit"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Registered School Name</FormLabel>
+              <FormLabel>Subject One Limit</FormLabel>
               <FormControl>
-                <Input className="uppercase" placeholder="Chirumhanzu" {...field} />
+                <Input className="uppercase" placeholder="A" {...field} />
               </FormControl>
               <FormDescription>
                 Do not forget to append Secondary or High School to the name
@@ -92,12 +94,12 @@ async function onSubmit(values) {
         
         <FormField
             control={form.control}
-            name="address"
+            name="subjectTwoLimit"
             render={({ field }) => (
                 <FormItem>
-                <FormLabel>Physical Address</FormLabel>
+                <FormLabel>Subject Two Limit</FormLabel>
                 <FormControl>
-                    <Input className="uppercase" type="text" placeholder="F6GX+GR5, Chinamhora" {...field} />
+                    <Input className="uppercase" type="text" placeholder="B" {...field} />
                 </FormControl>
                 <FormDescription>
                 This is the physical address of the school, where it is located
@@ -109,12 +111,12 @@ async function onSubmit(values) {
 
         <FormField
             control={form.control}
-            name="centreNumber"
+            name="subjectThreeLimit"
             render={({ field }) => (
                 <FormItem>
-                <FormLabel>Zimsec Center Number</FormLabel>
+                <FormLabel>Subject Three Limit</FormLabel>
                 <FormControl>
-                    <Input type="text" placeholder="5562822" {...field} />
+                    <Input type="text" placeholder="C" {...field} />
                 </FormControl>
                 <FormDescription>
                 The center number allocated to the school by Zimsec upon registering
@@ -123,9 +125,7 @@ async function onSubmit(values) {
                 </FormItem>
             )}
             />      
-
-          <ProvinceComboBox />
-
+          <SchoolComboBox />
 
         { isLoading ?
         <Button disabled>

@@ -13,12 +13,12 @@ import { Loader2 } from "lucide-react";
 
 const baseUrl = import.meta.env.VITE_BASE_URI
 
-function ListProvincesPage() {
+function ListSchoolAdminsPage() {
     const [payload, setPayload] = useState("")
 
     async function getData() {
         try {
-          const url = `${baseUrl}/provinces`; // Specify your API URL
+          const url = `${baseUrl}/school-admins`; // Specify your API URL
           const response = await getDataQuery(url);
           setPayload(response.data)
           console.log('Response:', response);
@@ -44,7 +44,8 @@ function ListProvincesPage() {
             <TableHeader>
                 <TableRow>
                 <TableHead className="w-[100px]">ID</TableHead>
-                <TableHead>Subject</TableHead>
+                <TableHead>Employee Number (EC)</TableHead>
+                <TableHead>Email</TableHead>
                 <TableHead className="text-right">Active</TableHead>
                 </TableRow>
             </TableHeader>
@@ -54,7 +55,8 @@ function ListProvincesPage() {
                 {payload.map((data, index) => (
                     <TableRow key={index}>
                         <TableCell className="font-medium">{data.id}</TableCell>
-                        <TableCell className="uppercase">{data.name}</TableCell>
+                        <TableCell className="uppercase">{data.ecNumber}</TableCell>
+                        <TableCell className="font-medium">{data.email}</TableCell>
                         <TableCell className="text-right">{data.status ? "YES" : "NO"}</TableCell>
                     </TableRow>
                     ))}
@@ -68,4 +70,4 @@ function ListProvincesPage() {
   )
 }
 
-export default ListProvincesPage
+export default ListSchoolAdminsPage

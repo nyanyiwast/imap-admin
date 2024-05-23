@@ -16,7 +16,7 @@ import {
 
 import { getDataQuery } from "../../api/get";
 import { getTotalDataQuery } from "../../api/getTotal";
-import { Loader2 } from "lucide-react";
+import { CalendarCheck2, Loader2, MapIcon, School2, Users2Icon } from "lucide-react";
 
 const baseUrl = import.meta.env.VITE_BASE_URI
 
@@ -68,7 +68,8 @@ function Dashboard() {
       footer: 'The number of full registered and active schools',
       startDate: null,
       endDate: null,
-      textCase: ''
+      textCase: '',
+      icon: <School2 />
     },
     {
       title: 'Total Provinces',
@@ -77,16 +78,18 @@ function Dashboard() {
       footer: 'The total number of provinces registered',
       startDate: null,
       endDate: null,
-      textCase: ''
+      textCase: '',
+      icon: <MapIcon />
     },
     {
-      title: 'Active Students',
+      title: 'Total Enrolled Students',
       description: 'Card Description',
       content: `+${formOneApplicants}`,
       footer: 'Number of successfully enrolled students',
       startDate: null,
       endDate: null,
-      textCase: ''
+      textCase: '',
+      icon: <Users2Icon />
     },
     {
       title: 'Latest School Term',
@@ -95,7 +98,8 @@ function Dashboard() {
       footer: `Latest active term for the year ${new Date().getFullYear()}`,
       startDate,
       endDate,
-      textCase: 'uppercase'
+      textCase: 'uppercase',
+      icon: <CalendarCheck2 />
     }
   ];
 
@@ -125,7 +129,10 @@ function Dashboard() {
     {cardData.map(card => (
       <Card key={Math.random()} className="w-full md:w-1/4">
         <div className="px-5 py-5">
+        <div className="flex justify-between items-center">
           <p className="font-semibold">{card.title}</p>
+          <p>{card.icon}</p>
+        </div>
           {
           schoolsData || provincesData || formOneApplicants || termData ?  
           <div>
